@@ -35,6 +35,7 @@ namespace RadioArchive
             [Blob("data/{Query.name}", FileAccess.Read, Connection = "AzureWebJobsStorage")] Stream blob)
         {
             logger.LogInformation("C# HTTP trigger function processed a request.");
+            logger.LogInformation($"CreateMediaServicesClientAsync token: {settings}");
 
             string name = request.Query["name"];
             logger.LogInformation($"Blob name {name}, blob length {blob.Length}");
