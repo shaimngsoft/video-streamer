@@ -21,7 +21,7 @@ namespace RadioArchive
 
         [FunctionName("PrepareStreamingContent")]
         public async Task Run(
-        [BlobTrigger("media/{name}", Connection = "AzureWebJobsStorage")] CloudBlockBlob blob, string name)
+        [BlobTrigger("data/{name}", Connection = "AzureWebJobsStorage")] CloudBlockBlob blob, string name)
         {
             logger.LogInformation($"PrepareStreamingContent: C# Blob trigger function Processed blob\n Name:{name}");
             if (settings.AutoProcessStreamingLocator)

@@ -13,6 +13,8 @@ using Microsoft.Rest.Azure;
 using Microsoft.Rest.Azure.Authentication;
 using Microsoft.Rest.Azure.OData;
 using System.Threading.Tasks;
+using Azure.Identity;
+using Azure.Core;
 
 namespace RadioArchive
 {
@@ -281,12 +283,31 @@ namespace RadioArchive
         // <CreateMediaServicesClient>
         private static async Task<IAzureMediaServicesClient> CreateMediaServicesClientAsync(ISettings config)
         {
-            var credentials = await GetCredentialsAsync(config);
+            //var credentials = await GetCredentialsAsync(config);
+            ManagedIdentityCredential credential = new ManagedIdentityCredential();
+            var accessTokenRequest = await credential.GetTokenAsync(
+                new TokenRequestContext(
+                    scopes: new string[] { "https://management.core.windows.net" + "/.default" }
+                    )
+                );
+            ServiceClientCredentials credentials = new TokenCredentials(accessTokenRequest.Token, "Bearer");
 
-            return new AzureMediaServicesClient(config.ArmEndpoint, credentials)
+            var subscriptionId = config.SubscriptionId;         
+//            var resourceGroup = config.ResourceGroup;
+//            var mediaServicesAccountName = config.MediaServicesAccount;
+
+            return new AzureMediaServicesClient(credentials)
             {
-                SubscriptionId = config.SubscriptionId,
+                SubscriptionId = subscriptionId
             };
+
+
+
+
+//            return new AzureMediaServicesClient(config.ArmEndpoint, credentials)
+//            {
+//                SubscriptionId = config.SubscriptionId,
+//            };
         }
         // </CreateMediaServicesClient>
 

@@ -32,7 +32,7 @@ namespace RadioArchive
         [FunctionName("RadioArchive")]
         public async Task<HttpResponseMessage> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest request,
-            [Blob("media/{Query.name}", FileAccess.Read, Connection = "AzureWebJobsStorage")] Stream blob)
+            [Blob("data/{Query.name}", FileAccess.Read, Connection = "AzureWebJobsStorage")] Stream blob)
         {
             logger.LogInformation("C# HTTP trigger function processed a request.");
 
