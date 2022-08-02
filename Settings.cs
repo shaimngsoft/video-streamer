@@ -3,7 +3,7 @@ namespace RadioArchive
 {
     public class Settings : ISettings
     {
-        public const string MediaSettings = "MediaSettings";
+        public const string MediaSettings = "Values";
 
         public string   AzureWebJobsStorage             { get; set; }
         public bool     AutoProcessStreamingLocator     { get; set; }
