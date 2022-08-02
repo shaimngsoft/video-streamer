@@ -20,6 +20,11 @@ namespace RadioArchive
         public string   AssetStorageAccountName         { get; set; }
         public bool     DeleteJobs                      { get; set; }
         public string   StreamingTransformName          { get; set; }
+
+        public override string ToString()
+        {
+            return $"SubscriptionId: {SubscriptionId}";
+        }
     }
 }
 
