@@ -35,7 +35,7 @@ namespace RadioArchive
             string name = blobName.Sanitize();
             try
             {
-                IAzureMediaServicesClient client = await CreateMediaServicesClientAsync(settings);
+                IAzureMediaServicesClient client = await CreateMediaServicesClientAsync();
                 StreamingLocator locator = await GetStreamLocator(client, name);
                 if (null == locator)
                 {
@@ -281,24 +281,27 @@ namespace RadioArchive
         /// <param name="config">The parm is of type ConfigWrapper. This class reads values from local configuration file.</param>
         /// <returns></returns>
         // <CreateMediaServicesClient>
-        private static async Task<IAzureMediaServicesClient> CreateMediaServicesClientAsync(ISettings config)
+        private async Task<IAzureMediaServicesClient> CreateMediaServicesClientAsync()
         {
             //var credentials = await GetCredentialsAsync(config);
+            logger.LogInformation($"CreateMediaServicesClientAsync trying to get token");
             ManagedIdentityCredential credential = new ManagedIdentityCredential();
             var accessTokenRequest = await credential.GetTokenAsync(
                 new TokenRequestContext(
                     scopes: new string[] { "https://management.core.windows.net" + "/.default" }
                     )
                 );
+            logger.LogInformation($"CreateMediaServicesClientAsync token: {accessTokenRequest}");
+
             ServiceClientCredentials credentials = new TokenCredentials(accessTokenRequest.Token, "Bearer");
 
-            var subscriptionId = config.SubscriptionId;         
+            //var subscriptionId = settings.SubscriptionId;         
 //            var resourceGroup = config.ResourceGroup;
 //            var mediaServicesAccountName = config.MediaServicesAccount;
 
             return new AzureMediaServicesClient(credentials)
             {
-                SubscriptionId = subscriptionId
+                SubscriptionId = settings.SubscriptionId
             };
 
 
