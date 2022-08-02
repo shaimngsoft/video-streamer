@@ -25,7 +25,7 @@ namespace RadioArchive
         {
             logger.LogInformation($"PrepareStreamingContent: C# Blob trigger function Processed blob\n Name:{name}");
             if (settings.AutoProcessStreamingLocator)
-                if (ContentType.Video == blob.Properties.ContentType.ResolveType())
+                if (ContentType.Audio == blob.Properties.ContentType.ResolveType())
                 {
                     using Stream stream = await blob.OpenReadAsync();
                     await generator.Generate(name, stream);

@@ -8,7 +8,8 @@ namespace RadioArchive
     {
         Other,
         Image,
-        Video
+        Video,
+        Audio
     }
 
     public static class StringExtensions
@@ -22,6 +23,8 @@ namespace RadioArchive
                 return ContentType.Image;
             if (contentType.StartsWith("video", StringComparison.OrdinalIgnoreCase))
                 return ContentType.Video;
+            if (contentType.StartsWith("audio", StringComparison.OrdinalIgnoreCase))
+                return ContentType.Audio;
             return ContentType.Other;
         }
 
