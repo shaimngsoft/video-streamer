@@ -295,45 +295,11 @@ namespace RadioArchive
 
             ServiceClientCredentials credentials = new TokenCredentials(accessTokenRequest.Token, "Bearer");
 
-            //var subscriptionId = settings.SubscriptionId;         
-//            var resourceGroup = config.ResourceGroup;
-//            var mediaServicesAccountName = config.MediaServicesAccount;
-
             return new AzureMediaServicesClient(credentials)
             {
                 SubscriptionId = settings.SubscriptionId
             };
-
-
-
-
-//            return new AzureMediaServicesClient(config.ArmEndpoint, credentials)
-//            {
-//                SubscriptionId = config.SubscriptionId,
-//            };
         }
-        // </CreateMediaServicesClient>
-
-        /// <summary>
-        /// Create the ServiceClientCredentials object based on the credentials
-        /// supplied in local configuration file.
-        /// </summary>
-        /// <param name="config">The parm is of type ConfigWrapper. This class reads values from local configuration file.</param>
-        /// <returns></returns>
-        // <GetCredentialsAsync>
-        private static async Task<ServiceClientCredentials> GetCredentialsAsync(ISettings config)
-        {
-            // Use ApplicationTokenProvider.LoginSilentWithCertificateAsync or UserTokenProvider.LoginSilentAsync to get a token using service principal with certificate
-            //// ClientAssertionCertificate
-            //// ApplicationTokenProvider.LoginSilentWithCertificateAsync
-
-            // Use ApplicationTokenProvider.LoginSilentAsync to get a token using a service principal with symetric key
-            ClientCredential clientCredential = new ClientCredential(config.AadClientId, config.AadSecret);
-            return await ApplicationTokenProvider.LoginSilentAsync(config.AadTenantId, clientCredential, ActiveDirectoryServiceSettings.Azure);
-        }
-        // </GetCredentialsAsync>
-
-
     }
 }
 

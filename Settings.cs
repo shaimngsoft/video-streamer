@@ -7,11 +7,7 @@ namespace RadioArchive
 
         public string   AzureWebJobsStorage             { get; set; }
         public bool     AutoProcessStreamingLocator     { get; set; }
-        public string   AadClientId                     { get; set; }
-        public string   AadSecret                       { get; set; }
-        public string   AadTenantId                     { get; set; }
         public string   AccountName                     { get; set; }
-        public Uri      ArmEndpoint                     { get; set; }
         public string   ResourceGroup                   { get; set; }
         public string   SubscriptionId                  { get; set; }
         public double   AssetExpiryHours                { get; set; }
@@ -23,7 +19,7 @@ namespace RadioArchive
 
         public override string ToString()
         {
-            return $"SubscriptionId: {SubscriptionId}";
+            return $"AzureWebJobsStorage: {AzureWebJobsStorage}, AutoProcessStreamingLocator: {AutoProcessStreamingLocator}, AccountName: {AccountName}, ResourceGroup: {ResourceGroup},  SubscriptionId: {SubscriptionId}, AssetExpiryHours: {AssetExpiryHours}, AssetStorageAccountName: {AssetStorageAccountName}, DeleteJobs: {DeleteJobs}, StreamingTransformName: {StreamingTransformName}";
         }
     }
 }
