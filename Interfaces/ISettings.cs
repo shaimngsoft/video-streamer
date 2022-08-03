@@ -14,6 +14,7 @@ namespace RadioArchive
         public string AssetStorageAccountName { get; set; }
         public bool DeleteJobs { get; set; }
         public string StreamingTransformName { get; set; }
+        public string AzureMediaServicesScope { get; set; }
     }
 }
 

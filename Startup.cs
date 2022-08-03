@@ -31,7 +31,8 @@ namespace RadioArchive
                 DefaultStreamingEndpointName = Environment.GetEnvironmentVariable("DefaultStreamingEndpointName", EnvironmentVariableTarget.Process),
                 StreamingLocatorScheme = Environment.GetEnvironmentVariable("StreamingLocatorScheme", EnvironmentVariableTarget.Process),
                 AssetStorageAccountName = Environment.GetEnvironmentVariable("AssetStorageAccountName", EnvironmentVariableTarget.Process),
-                StreamingTransformName = Environment.GetEnvironmentVariable("StreamingTransformName", EnvironmentVariableTarget.Process)
+                StreamingTransformName = Environment.GetEnvironmentVariable("StreamingTransformName", EnvironmentVariableTarget.Process),
+                AzureMediaServicesScope = Environment.GetEnvironmentVariable("AzureMediaServicesScope", EnvironmentVariableTarget.Process)
             };
 
             if (bool.TryParse(Environment.GetEnvironmentVariable("AutoProcessStreamingLocator", EnvironmentVariableTarget.Process), out bool autoLocator))

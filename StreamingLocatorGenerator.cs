@@ -288,9 +288,10 @@ namespace RadioArchive
             ManagedIdentityCredential credential = new ManagedIdentityCredential();
             var accessTokenRequest = await credential.GetTokenAsync(
                 new TokenRequestContext(
-                    scopes: new string[] { 
+                    scopes: new string[] {
+                        settings.AzureMediaServicesScope
                         // "https://management.core.windows.net" + "/.default",
-                        "Microsoft.Media/mediaServices" + "/.default"
+                        //"Microsoft.Media/mediaServices" + "/.default"
                         }
                     )
                 );

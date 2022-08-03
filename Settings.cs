@@ -16,10 +16,11 @@ namespace RadioArchive
         public string   AssetStorageAccountName         { get; set; }
         public bool     DeleteJobs                      { get; set; }
         public string   StreamingTransformName          { get; set; }
+        public string   AzureMediaServicesScope         { get; set; }
 
         public override string ToString()
         {
-            return $"AzureWebJobsStorage: {AzureWebJobsStorage}, AutoProcessStreamingLocator: {AutoProcessStreamingLocator}, AccountName: {AccountName}, ResourceGroup: {ResourceGroup},  SubscriptionId: {SubscriptionId}, AssetExpiryHours: {AssetExpiryHours}, AssetStorageAccountName: {AssetStorageAccountName}, DeleteJobs: {DeleteJobs}, StreamingTransformName: {StreamingTransformName}";
+            return $"AzureWebJobsStorage: {AzureWebJobsStorage}, AutoProcessStreamingLocator: {AutoProcessStreamingLocator}, AccountName: {AccountName}, ResourceGroup: {ResourceGroup},  SubscriptionId: {SubscriptionId}, AssetExpiryHours: {AssetExpiryHours}, AssetStorageAccountName: {AssetStorageAccountName}, DeleteJobs: {DeleteJobs}, StreamingTransformName: {StreamingTransformName}, AzureMediaServicesScope: {AzureMediaServicesScope}";
         }
     }
 }
