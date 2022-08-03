@@ -7,10 +7,8 @@ using System.Linq;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.Azure.Management.Media;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest;
 using Microsoft.Rest.Azure;
-using Microsoft.Rest.Azure.Authentication;
 using Microsoft.Rest.Azure.OData;
 using System.Threading.Tasks;
 using Azure.Identity;
@@ -35,18 +33,28 @@ namespace RadioArchive
             string name = blobName.Sanitize();
             try
             {
+                logger.LogInformation("CreateMediaServicesClientAsync");
                 IAzureMediaServicesClient client = await CreateMediaServicesClientAsync();
+                logger.LogInformation($"GetStreamLocator name:{name}");
                 StreamingLocator locator = await GetStreamLocator(client, name);
                 if (null == locator)
                 {
+                    logger.LogInformation($"CreateInputAssetAsync name:{name}.input");
                     Asset input = await CreateInputAssetAsync(client, $"{name}.input", blob);
+                    logger.LogInformation($"CreateOutputAssetAsync name:{name}.output");
                     Asset output = await CreateOutputAssetAsync(client, $"{name}.output");
+                    logger.LogInformation($"GetOrCreateTransformAsync");
                     Transform transform = await GetOrCreateTransformAsync(client);
+                    logger.LogInformation($"SubmitJobAsync name: {name}");
                     Job job = await SubmitJobAsync(client, name, input, output);
+                    logger.LogInformation($"WaitForJobToFinishAsync job: {job.Name}");
                     await WaitForJobToFinishAsync(job);
+                    logger.LogInformation($"CreateStreamingLocatorAsync name: {name}");
                     locator = await CreateStreamingLocatorAsync(client, output, name);
+                    logger.LogInformation($"CleanUp name: {name}");
                     await CleanUp(client, input, job);
                 }
+                logger.LogInformation($"GetStreamingUrlsAsync locator:{locator}");
                 return await GetStreamingUrlsAsync(client, locator);
             }
             catch (ErrorResponseException ex)
