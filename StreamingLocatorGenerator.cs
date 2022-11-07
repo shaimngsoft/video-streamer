@@ -211,12 +211,23 @@ namespace RadioArchive
                 {
                     new TransformOutput
                     {
-                        // The preset for the Transform is set to one of Media Services built-in sample presets.
-                        // You can  customize the encoding settings by changing this to use "StandardEncoderPreset" class.
-                        Preset = new BuiltInStandardEncoderPreset()
+//                        // The preset for the Transform is set to one of Media Services built-in sample presets.
+//                        // You can  customize the encoding settings by changing this to use "StandardEncoderPreset" class.
+//                        Preset = new BuiltInStandardEncoderPreset()
+//                        {
+//                            // This sample uses the built-in encoding preset for Adaptive Bitrate Streaming.
+//                            PresetName = EncoderNamedPreset.AdaptiveStreaming
+//                        }
+                        Preset = new StandardEncoderPreset
                         {
-                            // This sample uses the built-in encoding preset for Adaptive Bitrate Streaming.
-                            PresetName = EncoderNamedPreset.AdaptiveStreaming
+                            Codecs = {new CopyAudio(), new AacAudio {
+                                Channels = 2,
+                                SamplingRate = 48000,
+                                Bitrate = 128000,
+                                Profile = AacAudioProfile.AacLc,
+                                Label = "aac-lc"
+                            } },
+                            Formats = {new Mp4Format()}
                         }
                     }
                 };
